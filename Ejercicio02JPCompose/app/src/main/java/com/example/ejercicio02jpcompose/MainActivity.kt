@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
@@ -47,7 +48,7 @@ class MainActivity : ComponentActivity() {
                     Articulo("Nintendo Switch 2", 499.99f)
 
                 )
-                MaterialTheme{
+                MaterialTheme {
                     productosColumn(lista)
                 }
             }
@@ -58,7 +59,12 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun precioTotal(precio: Float) {
     Column(verticalArrangement = Arrangement.Bottom) {
-        Row(Modifier.fillMaxWidth().background(Color.LightGray).padding(bottom = 30.dp)) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .background(Color.LightGray)
+                .padding(bottom = 30.dp)
+        ) {
             Text(
                 text = "Precio: ",
                 fontWeight = FontWeight.Bold
@@ -72,7 +78,7 @@ fun precioTotal(precio: Float) {
 }
 
 @Composable
-fun productosColumn(lista: List<Articulo>){
+fun productosColumn(lista: List<Articulo>) {
     LazyColumn {
         items(lista.size) { index ->
             productosView(lista[index])
@@ -81,24 +87,29 @@ fun productosColumn(lista: List<Articulo>){
 }
 
 @Composable
-fun productosView(articulo: Articulo){
-    var isChecked: Boolean by remember{ mutableStateOf(false) }
-    Card (Modifier.fillMaxSize().padding(20.dp)) {
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 10.dp)) {
-            Column () {
-                Text(
-                    text = articulo.nombre
-                )
-                Text(
-                    text = ": " + articulo.precio.toString() + "€"
-                )
-            }
-            Column(horizontalAlignment = Alignment.End, modifier = Modifier.fillMaxWidth()) {
-                Checkbox(
-                    checked = isChecked,
-                    onCheckedChange = { isChecked = it }
-                )
-            }
+fun productosView(articulo: Articulo) {
+    var isChecked: Boolean by remember { mutableStateOf(false) }
+    Card(
+        Modifier
+            .fillMaxSize()
+            .padding(20.dp)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(start = 10.dp).fillMaxWidth()
+        ) {
+            Text(
+                text = articulo.nombre
+            )
+            Text(
+                text = ": " + articulo.precio.toString() + "€"
+            )
+
+            Checkbox(
+                checked = isChecked,
+                onCheckedChange = { isChecked = it },
+                modifier = Modifier.weight(1f)
+            )
         }
     }
 }
