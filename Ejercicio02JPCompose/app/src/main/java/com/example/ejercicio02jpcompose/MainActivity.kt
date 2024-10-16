@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -45,7 +47,15 @@ class MainActivity : ComponentActivity() {
                     Articulo("Nintendo Switch", 299.99f),
                     Articulo("Steam Deck", 599.99f),
                     Articulo("Aorus PC Gaming", 899.99f),
-                    Articulo("Nintendo Switch 2", 499.99f)
+                    Articulo("Nintendo Switch 2", 499.99f),
+                    Articulo("Nintendo Switch", 299.99f),
+                    Articulo("Steam Deck", 599.99f),
+                    Articulo("Aorus PC Gaming", 899.99f),
+                    Articulo("Nintendo Switch 2", 499.99f),
+                    Articulo("Nintendo Switch", 299.99f),
+                    Articulo("Steam Deck", 599.99f),
+                    Articulo("Aorus PC Gaming", 899.99f),
+                    Articulo("Aorus PC Gaming", 899.99f)
 
                 )
                 MaterialTheme {
@@ -57,31 +67,23 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun precioTotal(precio: Float) {
-    Column(verticalArrangement = Arrangement.Bottom) {
-        Row(
-            Modifier
+fun productosColumn(lista: List<Articulo>) {
+    Box (Modifier.fillMaxSize()) {
+        LazyColumn {
+            items(lista.size) { index ->
+                productosView(lista[index])
+            }
+        }
+        Row (
+            modifier = Modifier
+                .align(Alignment.BottomCenter) // Alinea el Row en la parte inferior
                 .fillMaxWidth()
-                .background(Color.LightGray)
-                .padding(bottom = 30.dp)
+                .background(Color.LightGray) // O el color que prefieras
+                .padding(16.dp) // Ajusta el padding según lo necesites
         ) {
             Text(
-                text = "Precio: ",
-                fontWeight = FontWeight.Bold
+                text = "asad"
             )
-            Text(
-                text = precio.toString(),
-                fontWeight = FontWeight.Bold
-            )
-        }
-    }
-}
-
-@Composable
-fun productosColumn(lista: List<Articulo>) {
-    LazyColumn {
-        items(lista.size) { index ->
-            productosView(lista[index])
         }
     }
 }
@@ -96,7 +98,9 @@ fun productosView(articulo: Articulo) {
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(start = 10.dp).fillMaxWidth()
+            modifier = Modifier
+                .padding(start = 10.dp)
+                .fillMaxWidth()
         ) {
             Text(
                 text = articulo.nombre
@@ -113,3 +117,4 @@ fun productosView(articulo: Articulo) {
         }
     }
 }
+
