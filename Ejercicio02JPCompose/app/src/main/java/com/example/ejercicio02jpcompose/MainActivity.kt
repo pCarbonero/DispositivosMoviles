@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -74,17 +75,6 @@ fun productosColumn(lista: List<Articulo>) {
                 productosView(lista[index])
             }
         }
-        Row (
-            modifier = Modifier
-                .align(Alignment.BottomCenter) // Alinea el Row en la parte inferior
-                .fillMaxWidth()
-                .background(Color.LightGray) // O el color que prefieras
-                .padding(16.dp) // Ajusta el padding según lo necesites
-        ) {
-            Text(
-                text = "asad"
-            )
-        }
     }
 }
 
@@ -112,9 +102,13 @@ fun productosView(articulo: Articulo) {
             Checkbox(
                 checked = isChecked,
                 onCheckedChange = { isChecked = it },
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f).clickable { hacerAlgo(isChecked) }
             )
         }
     }
+}
+
+fun hacerAlgo(isActive:Boolean){
+
 }
 
