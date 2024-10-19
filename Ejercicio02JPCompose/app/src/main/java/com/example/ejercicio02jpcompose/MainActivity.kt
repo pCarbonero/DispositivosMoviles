@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -31,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.ejercicio02jpcompose.ui.theme.Ejercicio02JPComposeTheme
@@ -69,18 +71,24 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun productosColumn(lista: List<Articulo>) {
-    Box (Modifier.fillMaxSize()) {
+    var total by remember { mutableStateOf(0f) }
+
+    Box(Modifier.fillMaxSize()) {
         LazyColumn {
             items(lista.size) { index ->
-                productosView(lista[index])
+                productosView(lista[index]) { precioCambio ->
+                    total += precioCambio // Actualiza el total sumando o restando el valor
+                }
             }
         }
+        barraBaja(total)
     }
 }
 
 @Composable
-fun productosView(articulo: Articulo) {
-    var isChecked: Boolean by remember { mutableStateOf(false) }
+fun productosView(articulo: Articulo, onPrecioCambio: (Float) -> Unit) {
+    var isChecked by remember { mutableStateOf(false) }
+
     Card(
         Modifier
             .fillMaxSize()
@@ -101,14 +109,36 @@ fun productosView(articulo: Articulo) {
 
             Checkbox(
                 checked = isChecked,
-                onCheckedChange = { isChecked = it },
-                modifier = Modifier.weight(1f).clickable { hacerAlgo(isChecked) }
+                onCheckedChange = { checked ->
+                    val precioCambio = if (checked) articulo.precio else -articulo.precio
+                    isChecked = checked
+                    onPrecioCambio(precioCambio) // Actualiza el total
+                },
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable { }
             )
         }
     }
 }
 
-fun hacerAlgo(isActive:Boolean){
-
+@Composable
+fun barraBaja(total: Float) {
+    Box(Modifier.fillMaxSize()) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .height(120.dp)
+                .background(color = Color.Gray)
+                .align(Alignment.BottomCenter),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Precio total: $total",
+                textAlign = TextAlign.Center
+            )
+        }
+    }
 }
 
