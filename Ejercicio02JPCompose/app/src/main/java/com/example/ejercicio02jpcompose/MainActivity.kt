@@ -77,7 +77,7 @@ fun productosColumn(lista: List<Articulo>) {
         LazyColumn {
             items(lista.size) { index ->
                 productosView(lista[index]) { precioCambio ->
-                    total += precioCambio // Actualiza el total sumando o restando el valor
+                    total += precioCambio
                 }
             }
         }
@@ -110,13 +110,13 @@ fun productosView(articulo: Articulo, onPrecioCambio: (Float) -> Unit) {
             Checkbox(
                 checked = isChecked,
                 onCheckedChange = { checked ->
-                    val precioCambio = if (checked) articulo.precio else -articulo.precio
+                    if (checked) {
+                        onPrecioCambio(articulo.precio)
+                    } else onPrecioCambio(-articulo.precio)
                     isChecked = checked
-                    onPrecioCambio(precioCambio) // Actualiza el total
                 },
                 modifier = Modifier
                     .weight(1f)
-                    .clickable { }
             )
         }
     }

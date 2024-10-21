@@ -10,7 +10,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,6 +29,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -44,17 +50,17 @@ fun magia(navHostController: NavHostController, num1: String, num2: String) {
         horizontalAlignment = Alignment.CenterHorizontally
     )
     {
-        AnimatedVisibility(visible = isVisible) {
-            Text(
-                text = res.toString(),
-                textAlign = TextAlign.Center,
-                fontSize = 80.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Monospace,
-                modifier = Modifier.padding(top = 100.dp)
-            )
+        Card (shape = RoundedCornerShape(20.dp), elevation = CardDefaults.cardElevation(10.dp), modifier = Modifier.padding(top = 20.dp).size(100.dp,100.dp)) {
+            AnimatedVisibility(visible = isVisible) {
+                Text(
+                    text = res.toString(),
+                    textAlign = TextAlign.Center,
+                    fontSize = 80.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Monospace
+                )
+            }
         }
-
         Text(
             text = "MAGIA",
             textAlign = TextAlign.Center,

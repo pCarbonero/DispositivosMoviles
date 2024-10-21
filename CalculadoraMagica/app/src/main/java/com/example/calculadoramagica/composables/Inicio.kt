@@ -26,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -50,8 +51,9 @@ fun inicio(navHostController: NavHostController){
         horizontalAlignment = Alignment.CenterHorizontally) {
         Box(Modifier.padding(top = 80.dp)){
             Image(
-                painter = painterResource(id = R.drawable.ic_launcher_background),
+                painter = painterResource(id = R.drawable.asteti),
                 contentDescription = "AA",
+                colorFilter = ColorFilter.tint(Color.Green),
                 modifier = Modifier.size(150.dp,150.dp)
             )
         }
