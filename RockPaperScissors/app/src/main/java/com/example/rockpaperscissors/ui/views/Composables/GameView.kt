@@ -1,4 +1,4 @@
-package com.example.rockpaperscissors.Composables
+package com.example.rockpaperscissors.ui.views.Composables
 
 import android.content.Context
 import android.widget.Toast
@@ -32,7 +32,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.rockpaperscissors.R
+import com.example.listatareabd.R
 import kotlin.random.Random
 
 @Composable
@@ -54,21 +54,21 @@ fun GameScreen(navController: NavHostController) {
         var player by remember{ mutableStateOf(R.drawable.ic_launcher_background)}
 
         if (enemyMove == 1){
-            enemy = R.drawable.rockhands
+            enemy = R.drawable.rock
         }
         else if(enemyMove == 2){
-            enemy = R.drawable.paperhands
+            enemy = R.drawable.paper
         }else if(enemyMove == 3){
-            enemy = R.drawable.scissorshand
+            enemy = R.drawable.scissors
         }
 
         if (playerMove == 1){
-            player = R.drawable.rockhands
+            player = R.drawable.rock
         }
         else if(playerMove == 2){
-            player = R.drawable.paperhands
+            player = R.drawable.paper
         }else if(playerMove == 3){
-            player = R.drawable.scissorshand
+            player = R.drawable.scissors
         }
 
         if (redScore == 3){
@@ -113,7 +113,7 @@ fun GameScreen(navController: NavHostController) {
                         }
                     }
                 }// enemyMove
-                    Box(
+                   /* Box(
                         Modifier
                             .size(160.dp)
                             .align(Alignment.BottomEnd),
@@ -123,7 +123,7 @@ fun GameScreen(navController: NavHostController) {
                                 contentDescription = "tijera",
                                 Modifier.fillMaxSize())
                         }
-                    }// enemyImage
+                    }// enemyImage*/
             }// redBox
             Divider(
                 color = Color.Black,
@@ -162,7 +162,7 @@ fun GameScreen(navController: NavHostController) {
                         }
                     }
                 }// playerMove
-                Box(
+                /*Box(
                     Modifier
                         .size(180.dp)
                         .align(Alignment.BottomStart).padding(bottom = 30.dp),
@@ -172,7 +172,7 @@ fun GameScreen(navController: NavHostController) {
                             contentDescription = "tijera",
                             Modifier.fillMaxSize())
                     }
-                }// playerImage
+                }// playerImage*/
 
                 Row (
                     Modifier
@@ -182,7 +182,7 @@ fun GameScreen(navController: NavHostController) {
                     verticalAlignment = Alignment.Bottom) {
 
                     // botones
-                    Image(painter = painterResource(id = R.drawable.rockhands),
+                    Image(painter = painterResource(id = R.drawable.rock),
                         contentDescription = "piedra",
                         Modifier
                             .size(80.dp)
@@ -199,7 +199,7 @@ fun GameScreen(navController: NavHostController) {
                                 isVisible = true
                             })
 
-                    Image(painter = painterResource(id = R.drawable.paperhands),
+                    Image(painter = painterResource(id = R.drawable.paper),
                         contentDescription = "papel",
                         Modifier
                             .size(80.dp)
@@ -216,7 +216,7 @@ fun GameScreen(navController: NavHostController) {
                                 isVisible = true
                             })
 
-                    Image(painter = painterResource(id = R.drawable.scissorshand),
+                    Image(painter = painterResource(id = R.drawable.scissors),
                         contentDescription = "tijera",
                         Modifier
                             .size(80.dp)

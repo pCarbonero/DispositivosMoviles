@@ -1,4 +1,4 @@
-package com.example.rockpaperscissors.Composables
+package com.example.rockpaperscissors.ui.views.Composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,17 +20,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.rockpaperscissors.R
 
 @Composable
 fun winnerScreen(navController: NavHostController, winner: String) {
-    var winImage by remember { mutableStateOf(R.drawable.gojowin) }
+    //var winImage by remember { mutableStateOf(drawable.gojowin) }
     var colorWin = Color(156, 172, 222)
     var text = "Has ganado"
 
     if (winner.toInt() == 2) {
         colorWin = Color(243, 139, 139)
-        winImage = R.drawable.sukuna2
+        //winImage = R.drawable.sukuna2
         text = "Has perdido"
     }
 
@@ -45,9 +44,9 @@ fun winnerScreen(navController: NavHostController, winner: String) {
             modifier = Modifier.padding(top = 100.dp))
         Button(onClick = {navController.navigate("game")}) { Text("Volver")}
     }
-    Image(
+    /*Image(
         painter = painterResource(id = winImage),
         contentDescription = "win",
         Modifier.size(1100.dp).padding(top = 410.dp)
-    )
+    )*/
 }
