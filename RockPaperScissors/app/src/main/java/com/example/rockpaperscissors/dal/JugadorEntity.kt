@@ -9,5 +9,6 @@ data class JugadorEntity(
     var id: Long = 0,
     var nombre: String = "",
     var partidasGanadas: Int = 0,
+    var partidasJugadas: Int = 0,
     var duelosGanados: Int = 0
 )

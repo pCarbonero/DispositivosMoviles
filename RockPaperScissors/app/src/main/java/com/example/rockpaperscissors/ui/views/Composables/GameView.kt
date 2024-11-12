@@ -1,6 +1,7 @@
 package com.example.rockpaperscissors.ui.views.Composables
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -19,6 +20,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,11 +35,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.listatareabd.R
+import com.example.rockpaperscissors.MainActivity.Companion.database
+import com.example.rockpaperscissors.dal.JugadorEntity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 @Composable
-fun GameScreen(navController: NavHostController) {
+fun GameScreen(navController: NavHostController, idJugador: String) {
     Box(Modifier.fillMaxSize()){
+        Log.d(":::TAG", "id: $idJugador")
+        val id = idJugador.toLong()
         val context = LocalContext.current
 
         var isVisible by remember { mutableStateOf(false) }
@@ -76,6 +85,11 @@ fun GameScreen(navController: NavHostController) {
             redScore = 0
         }
         if (blueScore == 3){
+            LaunchedEffect(Unit){
+                var jugador = database.jugadorDao().getJugadorPorId(id)
+                jugador.partidasGanadas+=1
+                database.jugadorDao().actualizar(jugador)
+            }
             navController.navigate("fin/1")
             blueScore = 0
         }
@@ -193,6 +207,7 @@ fun GameScreen(navController: NavHostController) {
                                 res = duelo(enemyMove, playerMove, context)
                                 if (res == 1) {
                                     blueScore++
+                                    sumar(id)
                                 } else if (res == 2) {
                                     redScore++
                                 }
@@ -210,6 +225,7 @@ fun GameScreen(navController: NavHostController) {
                                 res = duelo(enemyMove, playerMove, context)
                                 if (res == 1) {
                                     blueScore++
+                                    sumar(id)
                                 } else if (res == 2) {
                                     redScore++
                                 }
@@ -227,6 +243,7 @@ fun GameScreen(navController: NavHostController) {
                                 res = duelo(enemyMove, playerMove, context)
                                 if (res == 1) {
                                     blueScore++
+                                    sumar(id)
                                 } else if (res == 2) {
                                     redScore++
                                 }
@@ -274,4 +291,12 @@ fun duelo(enMove: Int, plMove: Int, context: Context): Int {
     }
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     return winner
+}
+
+fun sumar(id: Long){
+    CoroutineScope(Dispatchers.IO).launch {
+        var jugador = database.jugadorDao().getJugadorPorId(id)
+        jugador.duelosGanados+=1
+        database.jugadorDao().actualizar(jugador)
+    }
 }

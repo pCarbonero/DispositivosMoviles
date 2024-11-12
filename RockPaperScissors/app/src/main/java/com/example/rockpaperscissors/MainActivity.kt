@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
 import com.example.rockpaperscissors.dal.JugadoresDataBase
 import com.example.rockpaperscissors.ui.views.Composables.GameScreen
+import com.example.rockpaperscissors.ui.views.Composables.login
 import com.example.rockpaperscissors.ui.views.Composables.winnerScreen
 
 class MainActivity : ComponentActivity() {
@@ -22,16 +23,18 @@ class MainActivity : ComponentActivity() {
             applicationContext,
             JugadoresDataBase::class.java,
             name = "jugadores-db"
-        ).build()
+        ).fallbackToDestructiveMigration().build()
         enableEdgeToEdge()
         setContent {
             val navController = rememberNavController()
 
             NavHost(
                 navController = navController,
-                startDestination = "game"
+                startDestination = "login"
             ) {
-                composable("game") { GameScreen(navController) }
+                composable("login") {login(navController)}
+                composable("game/{idJugador}") { backStackEntry ->
+                    GameScreen(navController, backStackEntry.arguments?.getString("idJugador").toString()) }
                 composable("fin/{winner}") { backStackEntry ->
                 winnerScreen(navController,
                 backStackEntry.arguments?.getString("winner").toString())

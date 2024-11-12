@@ -16,4 +16,8 @@ interface JugadoresDao {
 
     @Update
     suspend fun  actualizar(jugador: JugadorEntity)
+
+    @Query("SELECT * FROM jugadores WHERE id = :idJugador")
+    suspend fun getJugadorPorId(idJugador: Long): JugadorEntity
+
 }
