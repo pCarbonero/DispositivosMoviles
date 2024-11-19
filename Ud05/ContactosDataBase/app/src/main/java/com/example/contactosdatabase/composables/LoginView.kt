@@ -28,10 +28,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.contactosdatabase.R
+import androidx.navigation.NavController
+import com.example.ContactosTarea2.R
 
 @Composable
-fun login(){
+fun login(navController: NavController){
     val context = LocalContext.current
     var text by rememberSaveable { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -77,7 +78,7 @@ fun login(){
                     Toast.makeText(context, "Inserta un nombre de usuario", Toast.LENGTH_SHORT).show()
                 }
                 else{
-
+                    navController.navigate("contactos")
                 }
             },
             colors = ButtonDefaults.buttonColors(Color(67,168, 255)),

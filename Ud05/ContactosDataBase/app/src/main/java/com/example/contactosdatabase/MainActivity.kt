@@ -1,6 +1,7 @@
 package com.example.contactosdatabase
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -14,13 +15,26 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.room.Room
 import com.example.contactosdatabase.composables.Contacto
 import com.example.contactosdatabase.composables.ItemList
+import com.example.contactosdatabase.composables.addContacto
+import com.example.contactosdatabase.composables.login
+import com.example.contactosdatabase.dal.ContactosDatabase
 import com.example.contactosdatabase.ui.theme.ContactosDataBaseTheme
 
 class MainActivity : ComponentActivity() {
+    companion object{
+        lateinit var database: ContactosDatabase
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        database = Room.databaseBuilder(
+            applicationContext,
+            ContactosDatabase::class.java,
+            "contactos-db"
+        ).build()
+
         enableEdgeToEdge()
         setContent {
             var itemContacto = listOf(
@@ -46,9 +60,11 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             NavHost(
                 navController = navController,
-                startDestination = "lista"
+                startDestination = "Inicio"
             ) {
-                //composable("contactos") { ItemList(navController) }
+                composable("Inicio") { login(navController) }
+                composable("contactos") { ItemList(navController) }
+                composable("add") { addContacto(navController) }
             }
         }
     }
